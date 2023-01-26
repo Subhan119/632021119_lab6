@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lab6/login.dart';
+import 'package:lab6/services/auth_service.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -42,8 +44,18 @@ class _RegisterState extends State<Register> {
             ),
             ElevatedButton(
                 onPressed: () {
+                  
                   if (_fromkey.currentState!.validate()) {
+                    
                     print("WELCOME");
+                    print(_emailController.toString());
+                    AuthService.registerUser(
+                      _emailController.text, _passwordController.text).then((value) {
+                        if (value == 1){
+                          Navigator.pop(context);
+                        }
+                      });
+                    
                   }
                 },
                 child: const Text("Register")),

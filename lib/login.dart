@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lab6/register.dart';
+import 'package:lab6/services/auth_service.dart';
+import 'package:lab6/success.dart';
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -43,8 +45,16 @@ class _LoginpageState extends State<Loginpage> {
             ),
             ElevatedButton(
                 onPressed: () {
+                  
                   if (_fromkey.currentState!.validate()) {
-                    print("WELCOME");
+                    print("Successful");
+                    AuthService.loginUser(_emailController.text, _passwordController.text).then((value){
+                      if( value == 1){
+                        Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => SuccessPage())
+                );
+                      }
+                    });
                   }
                 },
                 child: const Text("Login")),
